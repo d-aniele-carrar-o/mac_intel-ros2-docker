@@ -1,29 +1,25 @@
 #!/bin/bash
+set -e
 
-# --- Configuration ---
-# Set the name of the Docker image you want to use
+# Configuration
 DOCKER_IMAGE="my-ros-rviz"
+WORKSPACE_HOST="$HOME/Documents/docker_ros"
+CONTAINER_NAME="ros2_dev"
 
-# Set the path to your local ROS 2 workspace that you want to mount
-# The script will automatically create this directory if it doesn't exist.
-# Example: ~/ros2_ws will be mounted inside the container at /home/user/ros2_ws
-ROS_WS_HOST="$HOME/Documents/docker_ros"
+# Create workspace directory
+mkdir -p "$WORKSPACE_HOST"
 
-# --- Script Start ---
-echo "Starting ROS 2 Docker container..."
+echo "Starting ROS 2 container with RViz2..."
+echo "Workspace: $WORKSPACE_HOST -> /workspace"
+echo "VNC Access: localhost:5900"
 
-# 1. Create the workspace directory on your Mac if it's not there
-mkdir -p "$ROS_WS_HOST"
-echo "Mounting host directory: $ROS_WS_HOST"
-
-# 2. Run container with VNC
+# Run container
 docker run -it --rm \
-    --name ros2_dev \
+    --name "$CONTAINER_NAME" \
     -p 5900:5900 \
-    -v "$ROS_WS_HOST:/home/user/ros2_ws" \
-    "$DOCKER_IMAGE"
+    -v "$WORKSPACE_HOST:/workspace" \
+    "$DOCKER_IMAGE" "$@"
 
-echo "RViz2 is running! Connect with VNC client to: localhost:5900"
-echo "Try: brew install --cask tigervnc-viewer"
-
-# --- End of Script ---
+echo ""
+echo "Container stopped. To reconnect to a running container:"
+echo "  docker exec -it $CONTAINER_NAME bash"
