@@ -10,6 +10,10 @@ def generate_launch_description():
             parameters=[{
                 'enable_color': True,
                 'enable_depth': True,
+                'pointcloud.enable': True,
+                'pointcloud.stream_filter': 2,
+                'align_depth.enable': True,
+                'spatial_filter.enable': True,
                 'color_width': 640,
                 'color_height': 480,
                 'depth_width': 640,
