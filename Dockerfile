@@ -6,10 +6,11 @@ ENV DISPLAY=:1 \
     XDG_RUNTIME_DIR=/tmp/runtime-root
 
 # Install ROS 2 GUI packages, VNC server, and development tools
-RUN echo "nameserver 8.8.8.8" > /etc/resolv.conf && \
-    apt-get update && apt-get install -y --no-install-recommends \
+RUN apt-get update && apt-get install -y --no-install-recommends \
         ros-humble-rviz2 \
         ros-humble-rqt-* \
+        ros-humble-realsense2-camera \
+        ros-humble-realsense2-description \
         python3-colcon-common-extensions \
         python3-rosdep \
         python3-vcstool \

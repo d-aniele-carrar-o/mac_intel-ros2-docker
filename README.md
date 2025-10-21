@@ -1,50 +1,27 @@
-## ROS 2 Docker Setup for macOS
+# ROS 2 Docker Environment
 
-### Development Workflow
+## Quick Start
 ```bash
-# Build the image
-docker build -t my-ros-rviz .
+# 1. Build the Docker image
+./build.sh
 
-# Start development container (persistent)
-./dev.sh
+# 2. Start RViz2
+./run_rviz.sh    # Try X11 first
+./run_vnc.sh     # Use VNC if X11 doesn't work
 
-# Connect to container for development
-./connect.sh
-
-# Build ROS workspace
-./build_workspace.sh
+# 3. Start RealSense camera
+./run_realsense.sh
 ```
 
-### Quick Start (Original)
-```bash
-# Start container with RViz2
-./run_ros_container.sh
+## Available Commands
+- `./build.sh` - Build Docker image
+- `./dev.sh` - Start development container
+- `./connect.sh` - Connect to dev container
+- `./run_rviz.sh` - Start RViz2 (X11)
+- `./run_vnc.sh` - Start RViz2 (VNC at localhost:5900)
+- `./run_realsense.sh` - Start RealSense camera
 
-# Connect to running container (new terminal)
-./connect.sh
-```
-
-### VNC Access
-- Install VNC viewer: `brew install --cask tigervnc-viewer`
-- Connect to: `localhost:5900`
-- No password required
-
-### Custom Commands
-```bash
-# Start container with bash instead of RViz2
-./run_ros_container.sh bash
-
-# Start with custom ROS command
-./run_ros_container.sh ros2 topic list
-```
-
-### Workspace Structure
-- Host: `~/Documents/docker_ros/src` → Container: `/workspace/src`
-- Host: `~/Documents/docker_ros/launch` → Container: `/workspace/launch`
-- Host: `~/Documents/docker_ros/config` → Container: `/workspace/config`
-
-### Development Setup
-1. Use VS Code to edit files in `src/`, `launch/`, and `config/`
-2. Changes are automatically synced to the container
-3. Build and test inside the container using `./connect.sh`
-4. Use VNC for GUI applications like RViz2
+## Workspace Structure
+- `src/` → Your ROS packages
+- `launch/` → Launch files  
+- `config/` → Configuration files
