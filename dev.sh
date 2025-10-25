@@ -8,10 +8,13 @@ docker stop ros2_dev 2>/dev/null || true
 docker rm ros2_dev 2>/dev/null || true
 
 if [[ "$OSTYPE" == "linux-gnu"* ]]; then
-    # Linux: Use X11 forwarding
+    # Linux: Use X11 forwarding with USB devices
     xhost +local:docker >/dev/null 2>&1
     docker run -d \
         --name ros2_dev \
+        --privileged \
+        --device-cgroup-rule='c *:* rmw' \
+        -v /dev:/dev \
         -e DISPLAY=$DISPLAY \
         -v /tmp/.X11-unix:/tmp/.X11-unix:rw \
         -v "$(pwd)/src:/workspace/src" \
@@ -19,9 +22,12 @@ if [[ "$OSTYPE" == "linux-gnu"* ]]; then
         -v "$(pwd)/config:/workspace/config" \
         my-ros-rviz bash -c "while true; do sleep 30; done"
 else
-    # macOS: Use VNC
+    # macOS: Use VNC with USB devices
     docker run -d \
         --name ros2_dev \
+        --privileged \
+        --device-cgroup-rule='c *:* rmw' \
+        -v /dev:/dev \
         -p 5900:5900 \
         -v "$(pwd)/src:/workspace/src" \
         -v "$(pwd)/launch:/workspace/launch" \

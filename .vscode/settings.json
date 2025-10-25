@@ -1,13 +1,7 @@
 {
-    "python.defaultInterpreterPath": "/usr/bin/python3",
-    "files.associations": {
-        "*.launch": "xml",
-        "*.urdf": "xml",
-        "*.xacro": "xml"
-    },
-    "files.exclude": {
-        "**/build": true,
-        "**/install": true,
-        "**/log": true
-    }
+  "python.defaultInterpreterPath": "/opt/ros/humble/bin/python3",
+  "python.analysis.extraPaths": [
+    "/opt/ros/humble/lib/python3.10/site-packages",
+    "/opt/ros/humble/local/lib/python3.10/dist-packages"
+  ]
 }

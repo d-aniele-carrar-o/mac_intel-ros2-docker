@@ -21,5 +21,10 @@ def generate_launch_description():
                 'color_fps': 30.0,
                 'depth_fps': 30.0,
             }]
+        ),
+        Node(
+            package='camera_viewer',
+            executable='camera_viewer_node',
+            name='camera_viewer'
         )
     ])
