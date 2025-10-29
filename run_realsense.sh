@@ -17,7 +17,7 @@ docker run -d \
     -v "$(pwd)/launch:/workspace/launch" \
     -v "$(pwd)/config:/workspace/config" \
     my-ros-rviz \
-    bash -c "source /opt/ros/humble/setup.bash && ros2 launch realsense2_camera rs_launch.py"
+    bash -c "source /opt/ros/humble/setup.bash && source /workspace/install/setup.bash && cd /workspace && ros2 launch launch/realsense.launch.py"
 
 echo "RealSense camera started!"
 echo "Container name: ros2_realsense"
