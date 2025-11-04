@@ -293,7 +293,7 @@ class CameraViewer(Node):
         if w_diff < 0.1 and h_diff < 0.1:  # 10% tolerance
             self.dimension_stable_count += 1
             if self.dimension_stable_count == self.stability_threshold:
-                self.get_logger().info(f"🎯 STABLE DIMENSIONS: {self.stable_dimensions}")
+                self.get_logger().info(f"STABLE DIMENSIONS: {self.stable_dimensions}")
         else:
             self.stable_dimensions = dimensions
             self.dimension_stable_count = 1
